@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blog Main Login</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" defer src="js/login.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/blogMain.css">
+    <script src="https://kit.fontawesome.com/42762d49f1.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="navBar">
+            <div id="navLeftBox">
+                DOVTUTIS
+            </div>
+            <div class="display_flex" id="navRightBox">
+                <a href="register.html">
+                    Register
+                </a>
+                <a href="login.html">
+                    Log In
+                </a>
+                <a href="index.html">
+                    Main Page
+                </a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="display_flex justify-content-center align-items-center flex-column">
+            <div class="fontSize30 fontWeightBold textAlignCenter marginTop50">
+                Log In
+            </div>
+            <div class="flex-column justify-content-center align-items-center display_flex">
+                <div class="marginTop10">
+                    <input type="text" placeholder="Enter your name" class="inputBox"  minlength="5" required>
+                </div>
+                <div class="marginTop10">
+                    <input type="password" placeholder="Enter your password" class="inputBox" required>
+                </div>
+                <div class="marginTop10">
+                    <button id="loginButton" class="logRegButton">
+                        Log in
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

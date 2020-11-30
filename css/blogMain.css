@@ -1,0 +1,198 @@
+/*FLEX AND POSITIONS*/
+
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.display_flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.spaceAround {
+    justify-content: space-around;
+}
+
+.spaceBetween {
+    justify-content: space-between;
+}
+
+.align-self-end {
+    align-self: end;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.positionRelative {
+    position: relative;
+}
+
+
+/*FONT SIZES/STYLES*/
+
+.textAlignCenter {
+    text-align: center;
+}
+
+.fontWeightBold {
+    font-weight: bold;
+}
+
+.fontSize30 {
+    font-size: 30px;
+}
+
+.fontSize22 {
+    font-size: 22px;
+}
+
+.fontSize12 {
+    font-size: 12px;
+}
+
+.fontSize14 {
+    font-size: 12px;
+}
+
+.fontSize18 {
+    font-size: 12px;
+}
+
+.lineHeight20 {
+    line-height: 20px;
+}
+
+/*HEIGHTS AND WIDTHS*/
+
+.height20p {
+    height: 20px;
+}
+
+.width100 {
+    width: 100%;
+}
+
+/*COLORS*/
+
+.blue {
+    color: #0000ff;
+}
+
+/*MARGINS*/
+
+.marginTopBottom20 {
+    margin: 20px 0;
+}
+
+.marginTop50 {
+    margin-top: 50px;
+}
+
+.marginTop10 {
+    margin-top: 10px;
+}
+
+.margin5 {
+    margin: 5px;
+}
+
+.marginZero5 {
+   margin: 0 5px;
+}
+#navLeftBox {
+    font-size: 30px;
+    font-weight: bold;
+    height: 83px;
+    line-height: 83px;
+}
+
+#navRightBox a {
+    font-size: 16px;
+    font-weight: bold;
+    height: 83px;
+    line-height: 83px;
+    padding: 0 9px;
+    margin: 0 10px;
+    text-decoration: none;
+    color: #000000;
+}
+
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 32px;
+}
+
+#mainPageBackground {
+    background: url("https://coney.qodeinteractive.com/wp-content/uploads/2016/12/masonry-r-slide-img-1.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 490px;
+}
+
+#mainInnerImage {
+    background: url("https://coney.qodeinteractive.com/wp-content/uploads/2016/12/masonry-r-slide-img-2.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 103px;
+    width: 100%;
+}
+
+.inputBox {
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    width: 300px;
+}
+
+.logRegButton {
+    width: 130px;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 20px;
+    border-radius: 10px;
+    background-color: #999898;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.blogPost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 290px;
+    height: 600px;
+    margin: 15px;
+}
+
+.postImg {
+    width: 290px;
+    height: 260px;
+    cursor: pointer;
+    transition: .4s;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.blueHover:hover {
+    color: #0000ff;
+}
+
