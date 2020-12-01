@@ -48,6 +48,8 @@ function login (event) {
                 console.log(loginTrigger)
                 localStorage.setItem("secretKey", secretKey)
                 localStorage.setItem("name", name)
+                event.path[2].children[0].children[0].value = ""
+                event.path[2].children[1].children[0].value = ""
             })
     }
 }

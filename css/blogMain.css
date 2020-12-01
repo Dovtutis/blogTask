@@ -214,14 +214,32 @@
     flex-direction: column;
     width: 290px;
     height: 500px;
-    margin: 15px;
+    margin: 20px 40px;
+    float: top;
+    top: 0;
 }
 
 .postImg {
-    width: 290px;
     height: 260px;
+    width: 290px;
     cursor: pointer;
     transition: .4s;
+}
+
+.height1a {
+    height: 260px;
+}
+
+.height1b {
+    height: 500px;
+}
+
+.height2a {
+    height: 460px;
+}
+
+.height2b {
+    height: 700px;
 }
 
 body {
@@ -276,6 +294,19 @@ body {
     cursor: pointer;
 }
 
+.noButton {
+    width: 100px;
+    height: 30px;
+    background-color: red;
+    color: #FFFFFF;
+    border-radius: 10px;
+    line-height: 30px;
+    font-size: 16px;
+    margin: 5px 10px;
+    font-family: "Oswald", sans-serif;
+    cursor: pointer;
+}
+
 .deleteButton {
     width: 100px;
     height: 30px;
@@ -288,3 +319,90 @@ body {
     font-family: "Oswald", sans-serif;
     cursor: pointer;
 }
+
+#userBox {
+    width: 100%;
+    height: 50px;
+    background-color: #cbb8b8;
+    font-family: "Oswald", sans-serif;
+    font-size: 25px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+#postsToolbar {
+    width: 100%;
+    height: 50px;
+    background-color: #E5E9EC;
+    font-family: "Oswald", sans-serif;
+    font-size: 20px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: 600;
+    display: block;
+}
+
+.sortButton {
+    width: 160px;
+    height: 30px;
+    background-color: #999898;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+
+/*MODAL*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+    background-color: #fefefe;
+    text-align: center;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+

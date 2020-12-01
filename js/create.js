@@ -15,8 +15,8 @@ function createPost (event) {
     if (secretKey === null || secretKey === undefined) {
         alert("YOU MUST LOG IN!")
     } else {
-        if (title.length === 0) {
-            alert("YOU MUST ENTER TITLE!")
+        if (title.length < 20) {
+            alert("TITLE IS TOO SHORT, MINIMUM 20 SYMBOLS")
         }
         if (image.length === 0) {
             alert("YOU MUST ENTER IMAGE URL!")
@@ -41,7 +41,6 @@ function createPost (event) {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
-                    console.log("success")
                 })
         }
     }

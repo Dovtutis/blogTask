@@ -3,10 +3,21 @@ const blogPostContainer = document.getElementById('blogPostContainer')
 const mainPageBackground = document.getElementById('mainPageBackground')
 const postPage = document.getElementById('postPage')
 const editPage = document.getElementById('editPage')
+const userPosts = document.getElementById('userPosts')
+const userBox = document.getElementById('userBox')
+const newestPosts = document.getElementById('newestPosts')
+const oldestPosts = document.getElementById('oldestPosts')
+const postsToolbar = document.getElementById('postsToolbar')
+
 let posts = []
 let selectedPost = []
+let modal
+let btn
+let span
 
 //Event Listeners
+newestPosts.addEventListener("click", sortNewestPosts)
+oldestPosts.addEventListener("click", sortOldestPosts)
 
 //Vytas 12345
 
@@ -23,27 +34,43 @@ function getAllposts () {
             })
 
             console.log(posts)
-            generatePosts ()
+            generatePosts (blogPostContainer)
         })
 }
 
-function generatePosts() {
+function generatePosts(arg) {
 
-    blogPostContainer.innerHTML = ""
+    userBox.style.display = "none"
+    arg.innerHTML = ""
+    let heightTrigger = true
+    // let heightClass1a = ""
+    // let heightClass1b = ""
+    // let heightClass2a = ""
+    // let heightClass2b = ""
 
     posts.map(item => {
+        console.log(heightTrigger)
+
+        // if (heightTrigger === true) {
+        //     heightClass1a = "height1a"
+        //     heightClass1b = "height1b"
+        //
+        // } else {
+        //     heightClass1a = "height2a"
+        //     heightClass1b = "height2b"
+        // }
 
         let date = new Date(item.timestamp).toLocaleDateString("en-US")
         console.log(date)
 
-        blogPostContainer.innerHTML +=
+        arg.innerHTML +=
             `
             <div class="blogPost" id="${item.id}">
                 <div>
                     <img src="${item.image}" class="postImg" onclick="openBlog(event)">
                 </div>
                 <div class="display_flex spaceBetween">
-                     <div class="fontWeightBold fontSize12 blue margin5 cursorPointer overflowHidden">${item.username}</div>
+                     <div class="fontWeightBold fontSize12 blue margin5 cursorPointer overflowHidden" onclick="openByUser(event)">${item.username}</div>
                      <div class="fontWeightBold fontSize12 blue margin5 cursorPointer overflowHidden">${date}</div>
                 </div>
                 <div class="fontWeightBold fontSize18 cursorPointer margin5 overflowHidden" onclick="openBlog(event)">
@@ -70,6 +97,7 @@ function generatePosts() {
                 </div>
             </div>
             `
+        heightTrigger = !heightTrigger
     })
 }
 
@@ -78,6 +106,8 @@ function openBlog (event) {
     postPage.innerHTML = ""
     blogPostContainer.style.display = "none"
     mainPageBackground.style.display = "none"
+    userBox.style.display = "none"
+    postsToolbar.style.display = "none"
     postPage.style.display = "flex"
     console.log(posts)
     selectedPost = []
@@ -141,7 +171,11 @@ function openBlog (event) {
 
 function editPageFunction () {
     postPage.style.display = "none"
+    userBox.style.display = "none"
+    userPosts.style.display = "none"
+    editPage.style.display = "block"
 
+    editPage.innerHTML = ""
     editPage.innerHTML +=
         `
         <div class="display_flex justify-content-center align-items-center flex-column">
@@ -159,43 +193,73 @@ function editPageFunction () {
                         <textarea placeholder="Enter description" rows="4" cols="50" class="textArea">${selectedPost[0].description}</textarea>
                     </div>
                     <div class="marginTop10">
-                        <button id="editButton" class="editButton" onclick="sendEdit(event)">
-                            Edit
-                        </button>
+                        <button id="editModal" class="editButton" onclick="openModal(event)">Edit</button>
+                        <div id="myModal" class="modal display_flex justifyCenter">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <p>Do you really want to edit blog?</p>
+                                <button id="editButton" class="editButton" onclick="sendEdit(event)">
+                                        Yes
+                                </button>
+                                <button id="editButton" class="noButton" onclick="">
+                                        No
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         `
+    modal =document.getElementById("myModal");
+    btn = document.getElementById("editModal");
+    span = document.getElementsByClassName("close")[0];
 }
+
+
 
 function sendEdit (event) {
 
     console.log(event)
     let secretKey = localStorage.getItem("secretKey");
-    let title = event.path[2].children[1].children[0].value
-    let image = event.path[2].children[0].children[0].value
-    let description = event.path[2].children[2].children[0].value
+    let title = event.path[4].children[1].children[0].value
+    let image = event.path[4].children[0].children[0].value
+    let description = event.path[4].children[2].children[0].value
     let id = selectedPost[0].id
 
-    fetch('http://167.99.138.67:1111/updatepost', {
-        method: 'POST',
-        body: JSON.stringify({
-            secretKey: `${secretKey}`,
-            title: `${title}`,
-            image: `${image}`,
-            description: `${description}`,
-            id: `${id}`
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            console.log("success")
-        })
+    if (title.length === 0) {
+        alert("YOU MUST ENTER TITLE!")
+    }
+    if (image.length === 0) {
+        alert("YOU MUST ENTER IMAGE URL!")
+    }
+    if (description.length === 0) {
+        alert("YOU MUST ENTER DESCRIPTION!")
+    }
 
+    if (title.length > 0 && image.length > 0 && description.length > 0){
+        fetch('http://167.99.138.67:1111/updatepost', {
+            method: 'POST',
+            body: JSON.stringify({
+                secretKey: `${secretKey}`,
+                title: `${title}`,
+                image: `${image}`,
+                description: `${description}`,
+                id: `${id}`
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                console.log("success")
+                editPage.style.display = "none"
+                blogPostContainer.style.display = "flex"
+                mainPageBackground.style.display = "flex"
+                getAllposts ()
+            })
+    }
 }
 
 function deleteBlog () {
@@ -219,6 +283,61 @@ function deleteBlog () {
             postPage.style.display = "none"
             blogPostContainer.style.display = "flex"
             mainPageBackground.style.display = "flex"
-            generatePosts()
+            getAllposts ()
         })
 }
+
+function openByUser (event) {
+    let username = event.path[1].children[0].innerText
+    console.log(username)
+
+    blogPostContainer.style.display = "none"
+    mainPageBackground.style.display = "none"
+    userPosts.style.display = "flex"
+
+    userBox.innerHTML =
+        `
+        All user "${username}" posts:
+        `
+
+    posts = posts.filter(el => el.username === username)
+    generatePosts(userPosts)
+
+
+}
+
+function sortOldestPosts () {
+
+    posts.sort(function(a, b)
+    {return a.timestamp-b.timestamp})
+
+    generatePosts(blogPostContainer)
+}
+
+function sortNewestPosts () {
+
+    posts.sort(function(a, b)
+    {return b.timestamp-a.timestamp})
+
+    generatePosts(blogPostContainer)
+}
+
+
+//MODAL
+
+
+function openModal (event) {
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+}
+
