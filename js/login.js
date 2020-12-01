@@ -1,16 +1,20 @@
+// localStorage.clear()
 
 const loginButton = document.getElementById('loginButton')
 
 loginButton.addEventListener("click", login)
 let secretKey
+let user
+let loginTrigger
 
 function login (event) {
     console.log(event)
+    loginTrigger = false
 
     let name = event.path[2].children[0].children[0].value
     let password = event.path[2].children[1].children[0].value
 
-    let user = {
+    user = {
         name: `${name}`,
         password: `${password}`
     }
@@ -40,6 +44,11 @@ function login (event) {
                 console.log(data)
                 secretKey = data.secretKey
                 console.log(secretKey)
+                loginTrigger = true
+                console.log(loginTrigger)
+                localStorage.setItem("secretKey", secretKey)
+                localStorage.setItem("name", name)
             })
     }
 }
+

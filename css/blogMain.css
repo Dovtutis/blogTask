@@ -29,6 +29,10 @@
     align-self: end;
 }
 
+.align-self-start{
+    align-self: start;
+}
+
 .wrap {
     flex-wrap: wrap;
 }
@@ -37,6 +41,9 @@
     position: relative;
 }
 
+.overflowHidden {
+    overflow: hidden
+}
 
 /*FONT SIZES/STYLES*/
 
@@ -52,6 +59,10 @@
     font-size: 30px;
 }
 
+.fontSize26 {
+    font-size: 26px;
+}
+
 .fontSize22 {
     font-size: 22px;
 }
@@ -61,16 +72,25 @@
 }
 
 .fontSize14 {
-    font-size: 12px;
+    font-size: 14px;
+}
+
+.fontSize16 {
+    font-size: 16px;
 }
 
 .fontSize18 {
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .lineHeight20 {
     line-height: 20px;
 }
+
+.lineHeight30 {
+    line-height: 30px;
+}
+
 
 /*HEIGHTS AND WIDTHS*/
 
@@ -82,10 +102,18 @@
     width: 100%;
 }
 
+.width80 {
+    width: 80%;
+}
+
 /*COLORS*/
 
 .blue {
     color: #0000ff;
+}
+
+.gray {
+    color: #9E9E9E;
 }
 
 /*MARGINS*/
@@ -102,6 +130,10 @@
     margin-top: 10px;
 }
 
+.marginBottom20 {
+    margin-bottom: 20px;
+}
+
 .margin5 {
     margin: 5px;
 }
@@ -109,6 +141,16 @@
 .marginZero5 {
    margin: 0 5px;
 }
+
+.marginRight10 {
+    margin-right: 10px;
+}
+
+.marginRight20 {
+    margin-right: 20px;
+}
+
+
 #navLeftBox {
     font-size: 30px;
     font-weight: bold;
@@ -152,7 +194,7 @@
     height: 20px;
     line-height: 20px;
     font-size: 20px;
-    width: 300px;
+    width: 500px;
 }
 
 .logRegButton {
@@ -169,11 +211,9 @@
 
 .blogPost {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
     width: 290px;
-    height: 600px;
+    height: 500px;
     margin: 15px;
 }
 
@@ -188,6 +228,22 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+#postPage {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.bigImage {
+    width: 818px;
+    height: 516px;
+}
+
+#blogPostContainer {
+    flex-wrap: wrap;
+}
+
 .cursorPointer {
     cursor: pointer;
 }
@@ -196,3 +252,39 @@ body {
     color: #0000ff;
 }
 
+.inputRegisterBox {
+    width: 400px;
+    height: 30px;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.textArea {
+    font-size: 20px;
+}
+
+.editButton {
+    width: 100px;
+    height: 30px;
+    background-color: green;
+    color: #FFFFFF;
+    border-radius: 10px;
+    line-height: 30px;
+    font-size: 16px;
+    margin: 5px 10px;
+    font-family: "Oswald", sans-serif;
+    cursor: pointer;
+}
+
+.deleteButton {
+    width: 100px;
+    height: 30px;
+    background-color: red;
+    color: #FFFFFF;
+    border-radius: 10px;
+    line-height: 30px;
+    font-size: 16px;
+    margin: 5px 10px;
+    font-family: "Oswald", sans-serif;
+    cursor: pointer;
+}
