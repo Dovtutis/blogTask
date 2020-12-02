@@ -11,9 +11,12 @@ const postsToolbar = document.getElementById('postsToolbar')
 
 let posts = []
 let selectedPost = []
-let modal
-let btn
-let span
+let editModal
+let editBtn
+let editSpan
+let deleteModal
+let deleteBtn
+let deleteSpan
 
 //Event Listeners
 newestPosts.addEventListener("click", sortNewestPosts)
@@ -40,7 +43,6 @@ function getAllposts () {
 
 function generatePosts(arg) {
 
-    userBox.style.display = "none"
     arg.innerHTML = ""
     let heightTrigger = true
     // let heightClass1a = ""
@@ -164,8 +166,23 @@ function openBlog (event) {
         blogSideCollum.innerHTML +=
             `
             <button class="editButton" onclick="editPageFunction()">EDIT</button>
-            <button class="deleteButton" onclick="deleteBlog()">DELETE</button>
+            <button class="deleteButton" onclick="openDeleteModal(event)">DELETE</button>
+            <div id="deleteModal" class="modal display_flex justifyCenter">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                        <p>Do you really want to delete blog?</p>
+                            <button id="deleteBtn" class="editButton" onclick="deleteBlog()">
+                                        Yes
+                            </button>
+                            <button id="deleteNoBtn" class="noButton" onclick="closeDeleteModal(event)">
+                                        No
+                            </button>
+                            </div>
+                        </div>
             `
+        deleteModal = document.getElementById('deleteModal')
+        deleteBtn = document.getElementById('deleteBtn')
+        deleteSpan = document.getElementsByClassName("close")[0];
     }
 }
 
@@ -193,15 +210,15 @@ function editPageFunction () {
                         <textarea placeholder="Enter description" rows="4" cols="50" class="textArea">${selectedPost[0].description}</textarea>
                     </div>
                     <div class="marginTop10">
-                        <button id="editModal" class="editButton" onclick="openModal(event)">Edit</button>
-                        <div id="myModal" class="modal display_flex justifyCenter">
+                        <button id="editModalButton" class="editButton" onclick="openEditModal(event)">Edit</button>
+                        <div id="editModal" class="modal display_flex justifyCenter">
                             <div class="modal-content">
                                 <span class="close">&times;</span>
                                 <p>Do you really want to edit blog?</p>
                                 <button id="editButton" class="editButton" onclick="sendEdit(event)">
                                         Yes
                                 </button>
-                                <button id="editButton" class="noButton" onclick="">
+                                <button id="editNoButton" class="noButton" onclick="closeEditModal(event)">
                                         No
                                 </button>
                             </div>
@@ -210,16 +227,15 @@ function editPageFunction () {
                 </div>
             </div>
         `
-    modal =document.getElementById("myModal");
-    btn = document.getElementById("editModal");
-    span = document.getElementsByClassName("close")[0];
+    editModal =document.getElementById("editModal");
+    editBtn = document.getElementById("editModalButton");
+    editSpan = document.getElementsByClassName("close")[0];
 }
-
-
 
 function sendEdit (event) {
 
     console.log(event)
+
     let secretKey = localStorage.getItem("secretKey");
     let title = event.path[4].children[1].children[0].value
     let image = event.path[4].children[0].children[0].value
@@ -253,11 +269,14 @@ function sendEdit (event) {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                console.log("success")
-                editPage.style.display = "none"
-                blogPostContainer.style.display = "flex"
-                mainPageBackground.style.display = "flex"
-                getAllposts ()
+                console.log(data.success)
+
+                if (data.success === true) {
+                    editPage.style.display = "none"
+                    blogPostContainer.style.display = "flex"
+                    mainPageBackground.style.display = "flex"
+                    getAllposts ()
+                }
             })
     }
 }
@@ -280,10 +299,13 @@ function deleteBlog () {
         .then(data => {
             console.log(data)
             console.log("success")
-            postPage.style.display = "none"
-            blogPostContainer.style.display = "flex"
-            mainPageBackground.style.display = "flex"
-            getAllposts ()
+
+            if (data.success === true) {
+                postPage.style.display = "none"
+                blogPostContainer.style.display = "flex"
+                mainPageBackground.style.display = "flex"
+                getAllposts ()
+            }
         })
 }
 
@@ -293,6 +315,8 @@ function openByUser (event) {
 
     blogPostContainer.style.display = "none"
     mainPageBackground.style.display = "none"
+    postsToolbar.style.display = "none"
+    userBox.style.display = "block"
     userPosts.style.display = "flex"
 
     userBox.innerHTML =
@@ -322,22 +346,44 @@ function sortNewestPosts () {
     generatePosts(blogPostContainer)
 }
 
-
 //MODAL
 
+function openEditModal (event) {
 
-function openModal (event) {
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
+    console.log("editinam")
 
-    span.onclick = function() {
-        modal.style.display = "none";
+    editModal.style.display = "block";
+
+    editSpan.onclick = function() {
+        editModal.style.display = "none";
     }
     window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        if (event.target == editModal) {
+            editModal.style.display = "none";
         }
     }
 }
 
+function closeEditModal (event) {
+    editModal.style.display = "none";
+}
+
+function openDeleteModal(event) {
+
+    console.log("deletinam")
+
+    deleteModal.style.display = "block";
+
+    deleteSpan.onclick = function() {
+        deleteModal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == deleteModal) {
+            deleteModal.style.display = "none";
+        }
+    }
+}
+
+function closeDeleteModal(event) {
+    deleteModal.style.display = "none";
+}
