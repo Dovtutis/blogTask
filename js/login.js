@@ -1,11 +1,11 @@
 // localStorage.clear()
 
 const loginButton = document.getElementById('loginButton')
-
-loginButton.addEventListener("click", login)
 let secretKey
 let user
 let loginTrigger
+
+loginButton.addEventListener("click", login)
 
 function login (event) {
     console.log(event)

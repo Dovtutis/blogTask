@@ -1,6 +1,5 @@
 /*FLEX AND POSITIONS*/
 
-
 .justify-content-center {
     justify-content: center;
 }
@@ -91,7 +90,6 @@
     line-height: 30px;
 }
 
-
 /*HEIGHTS AND WIDTHS*/
 
 .height20p {
@@ -149,7 +147,6 @@
 .marginRight20 {
     margin-right: 20px;
 }
-
 
 #navLeftBox {
     font-size: 30px;
@@ -357,7 +354,6 @@ body {
     cursor: pointer;
     border-radius: 10px;
 }
-
 
 /*MODAL*/
 
