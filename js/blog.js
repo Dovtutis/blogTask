@@ -44,23 +44,8 @@ function getAllposts () {
 function generatePosts(arg) {
 
     arg.innerHTML = ""
-    // let heightTrigger = true
-    // let heightClass1a = ""
-    // let heightClass1b = ""
-    // let heightClass2a = ""
-    // let heightClass2b = ""
 
     posts.map(item => {
-        console.log(heightTrigger)
-
-        // if (heightTrigger === true) {
-        //     heightClass1a = "height1a"
-        //     heightClass1b = "height1b"
-        //
-        // } else {
-        //     heightClass1a = "height2a"
-        //     heightClass1b = "height2b"
-        // }
 
         let date = new Date(item.timestamp).toLocaleDateString("en-US")
         console.log(date)
