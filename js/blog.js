@@ -44,7 +44,7 @@ function getAllposts () {
 function generatePosts(arg) {
 
     arg.innerHTML = ""
-    let heightTrigger = true
+    // let heightTrigger = true
     // let heightClass1a = ""
     // let heightClass1b = ""
     // let heightClass2a = ""
@@ -99,7 +99,7 @@ function generatePosts(arg) {
                 </div>
             </div>
             `
-        heightTrigger = !heightTrigger
+        // heightTrigger = !heightTrigger
     })
 }
 
