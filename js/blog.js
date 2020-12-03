@@ -10,6 +10,7 @@ const oldestPosts = document.getElementById('oldestPosts')
 const postsToolbar = document.getElementById('postsToolbar')
 
 let posts = []
+let allUsersPosts = []
 let selectedPost = []
 let editModal
 let editBtn
@@ -37,15 +38,15 @@ function getAllposts () {
             })
 
             console.log(posts)
-            generatePosts (blogPostContainer)
+            generatePosts (blogPostContainer, posts)
         })
 }
 
-function generatePosts(arg) {
+function generatePosts(arg, arr) {
 
     arg.innerHTML = ""
 
-    posts.map(item => {
+    arr.map(item => {
 
         let date = new Date(item.timestamp).toLocaleDateString("en-US")
         console.log(date)
@@ -98,13 +99,30 @@ function openBlog (event) {
     postPage.style.display = "flex"
     console.log(posts)
     selectedPost = []
-    selectedPost = posts.filter(el => el.id === event.path[2].id)
+    let username = event.path[2].children[1].children[0].innerHTML
+    let id = event.path[2].id
 
-    if (selectedPost.length === 0) {
-        selectedPost = posts.filter(el => el.id === event.path[1].id)
-    }
+    console.log(username)
+    console.log(id)
 
-    console.log(selectedPost)
+    fetch(`http://167.99.138.67:1111/getsinglepost/${username}/${id}`)
+        .then(response => response.json())
+        .then(data => {
+                selectedPost.unshift(data.data)
+                openBlogPost()
+        })
+
+    // selectedPost = posts.filter(el => el.id === event.path[2].id)
+    //
+    // if (selectedPost.length === 0) {
+    //     selectedPost = posts.filter(el => el.id === event.path[1].id)
+    // }
+
+
+}
+
+function openBlogPost () {
+
     let date = new Date(selectedPost[0].timestamp).toLocaleDateString("en-US")
 
     postPage.innerHTML +=
@@ -297,21 +315,33 @@ function deleteBlog () {
 function openByUser (event) {
     let username = event.path[1].children[0].innerText
     console.log(username)
-
-    blogPostContainer.style.display = "none"
-    mainPageBackground.style.display = "none"
     postsToolbar.style.display = "none"
-    userBox.style.display = "block"
-    userPosts.style.display = "flex"
 
-    userBox.innerHTML =
-        `
-        All user "${username}" posts:
-        `
+    // blogPostContainer.style.display = "none"
+    // mainPageBackground.style.display = "none"
+    // postsToolbar.style.display = "none"
+    // userBox.style.display = "block"
+    // userPosts.style.display = "flex"
+    //
+    // userBox.innerHTML =
+    //     `
+    //     All user "${username}" posts:
+    //     `
+    //
+    // posts = posts.filter(el => el.username === username)
+    // generatePosts(userPosts)
 
-    posts = posts.filter(el => el.username === username)
-    generatePosts(userPosts)
-
+    allUsersPosts = []
+    fetch(`http://167.99.138.67:1111/getuserposts/${username}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            data.data.map(item =>{
+                allUsersPosts.unshift(item)
+            })
+                console.log(allUsersPosts)
+                generatePosts(blogPostContainer, allUsersPosts)
+            })
 
 }
 
@@ -320,7 +350,7 @@ function sortOldestPosts () {
     posts.sort(function(a, b)
     {return a.timestamp-b.timestamp})
 
-    generatePosts(blogPostContainer)
+    generatePosts(blogPostContainer, posts)
 }
 
 function sortNewestPosts () {
@@ -328,7 +358,7 @@ function sortNewestPosts () {
     posts.sort(function(a, b)
     {return b.timestamp-a.timestamp})
 
-    generatePosts(blogPostContainer)
+    generatePosts(blogPostContainer, posts)
 }
 
 //MODAL
