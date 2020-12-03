@@ -1,6 +1,6 @@
-// localStorage.clear()
 
 const loginButton = document.getElementById('loginButton')
+
 let secretKey
 let user
 let loginTrigger

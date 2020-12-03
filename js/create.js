@@ -1,5 +1,6 @@
 
 const createPostButton = document.getElementById('createPostButton')
+
 let secretKey = localStorage.getItem("secretKey");
 
 createPostButton.addEventListener("click", createPost)

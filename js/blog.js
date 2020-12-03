@@ -1,4 +1,6 @@
 
+//Vytas 12345 MY ACCOUNT
+
 const blogPostContainer = document.getElementById('blogPostContainer')
 const mainPageBackground = document.getElementById('mainPageBackground')
 const postPage = document.getElementById('postPage')
@@ -18,13 +20,11 @@ let editSpan
 let deleteModal
 let deleteBtn
 let deleteSpan
-
+let openByUserTrigger = false
 
 //Event Listeners
 newestPosts.addEventListener("click", sortNewestPosts)
 oldestPosts.addEventListener("click", sortOldestPosts)
-
-//Vytas 12345
 
 getAllposts ()
 
@@ -137,7 +137,7 @@ function openBlog (event, arg) {
 }
 
 function openBlogPost () {
-
+    postsToolbar.style.display = "none"
     let date = new Date(selectedPost[0].timestamp).toLocaleDateString("en-US")
 
     postPage.innerHTML +=
@@ -328,9 +328,10 @@ function deleteBlog () {
 }
 
 function openByUser (event) {
+
     let username = event.path[1].children[0].innerText
     console.log(username)
-    postsToolbar.style.display = "none"
+    openByUserTrigger = true
 
     // blogPostContainer.style.display = "none"
     // mainPageBackground.style.display = "none"
@@ -362,18 +363,34 @@ function openByUser (event) {
 
 function sortOldestPosts () {
 
-    posts.sort(function(a, b)
-    {return a.timestamp-b.timestamp})
+    if (openByUserTrigger === false) {
+        posts.sort(function(a, b)
+        {return a.timestamp-b.timestamp})
 
-    generatePosts(blogPostContainer, posts)
+        generatePosts(blogPostContainer, posts)
+    } else {
+        allUsersPosts.sort(function(a, b)
+        {return a.timestamp-b.timestamp})
+
+        generatePosts(blogPostContainer, allUsersPosts)
+    }
+
+
 }
 
 function sortNewestPosts () {
 
-    posts.sort(function(a, b)
-    {return b.timestamp-a.timestamp})
+    if (openByUserTrigger === false) {
+        posts.sort(function(a, b)
+        {return b.timestamp-a.timestamp})
 
-    generatePosts(blogPostContainer, posts)
+        generatePosts(blogPostContainer, posts)
+    } else {
+        allUsersPosts.sort(function(a, b)
+        {return b.timestamp-a.timestamp})
+
+        generatePosts(blogPostContainer, allUsersPosts)
+    }
 }
 
 //MODAL
