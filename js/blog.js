@@ -19,6 +19,7 @@ let deleteModal
 let deleteBtn
 let deleteSpan
 
+
 //Event Listeners
 newestPosts.addEventListener("click", sortNewestPosts)
 oldestPosts.addEventListener("click", sortOldestPosts)
@@ -45,6 +46,7 @@ function getAllposts () {
 function generatePosts(arg, arr) {
 
     arg.innerHTML = ""
+    postsToolbar.style.display = "block"
 
     arr.map(item => {
 
@@ -55,20 +57,20 @@ function generatePosts(arg, arr) {
             `
             <div class="blogPost" id="${item.id}">
                 <div>
-                    <img src="${item.image}" class="postImg" onclick="openBlog(event)">
+                    <img src="${item.image}" class="postImg" onclick="openBlog(event, 2)">
                 </div>
                 <div class="display_flex spaceBetween">
                      <div class="fontWeightBold fontSize12 blue margin5 cursorPointer overflowHidden" onclick="openByUser(event)">${item.username}</div>
                      <div class="fontWeightBold fontSize12 blue margin5 cursorPointer overflowHidden">${date}</div>
                 </div>
-                <div class="fontWeightBold fontSize18 cursorPointer margin5 overflowHidden" onclick="openBlog(event)">
+                <div class="fontWeightBold fontSize18 cursorPointer margin5 overflowHidden" onclick="openBlog(event, 1)">
                     ${item.title}
                 </div>
                 <div class="fontSize14 margin5 overflowHidden">
                     ${item.description.slice(0, 150)}...
                 </div>
                 <div class="display_flex spaceBetween margin5 width100">
-                    <div class="fontSize12 fontWeightBold lineHeight20 height20p cursorPointer blueHover" onclick="openBlog(event)">
+                    <div class="fontSize12 fontWeightBold lineHeight20 height20p cursorPointer blueHover" onclick="openBlog(event, 2)">
                         READ MORE
                     </div>
                     <div class="display_flex">
@@ -89,8 +91,9 @@ function generatePosts(arg, arr) {
     })
 }
 
-function openBlog (event) {
+function openBlog (event, arg) {
     console.log(event)
+    console.log(arg)
     postPage.innerHTML = ""
     blogPostContainer.style.display = "none"
     mainPageBackground.style.display = "none"
@@ -99,8 +102,20 @@ function openBlog (event) {
     postPage.style.display = "flex"
     console.log(posts)
     selectedPost = []
-    let username = event.path[2].children[1].children[0].innerHTML
-    let id = event.path[2].id
+
+    let username
+    let id
+
+    if (arg === 1){
+        username = event.path[1].children[1].children[0].innerHTML
+        id = event.path[1].id
+    }
+
+    if (arg === 2) {
+        username = event.path[2].children[1].children[0].innerHTML
+        id = event.path[2].id
+    }
+
 
     console.log(username)
     console.log(id)
@@ -162,7 +177,6 @@ function openBlogPost () {
         `
 
     let name = localStorage.getItem("name");
-    console.log(name)
 
     if (selectedPost[0].username === name) {
         let blogSideCollum = document.getElementById('blogSideCollum')
@@ -279,6 +293,7 @@ function sendEdit (event) {
                     blogPostContainer.style.display = "flex"
                     mainPageBackground.style.display = "flex"
                     getAllposts ()
+                    postsToolbar.style.display = "block"
                 }
             })
     }
